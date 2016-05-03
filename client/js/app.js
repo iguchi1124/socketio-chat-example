@@ -1,7 +1,9 @@
-require("!style!css!less!../css/style.less");
 var $ = require("jquery");
-var io = require("socket.io-client");
 
+require("style!css!less!../css/style.less");
+$("#app").html(require("jade!../jade/app.jade"));
+
+var io = require("socket.io-client");
 var socket = io();
 $('form').submit(function(){
   socket.emit('message', $('#m').val());

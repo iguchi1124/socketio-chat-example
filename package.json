@@ -12,6 +12,9 @@
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "html-loader": "^0.4.3",
+    "jade-loader": "^0.8.0",
     "less-loader": "^2.2.3",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0"

@@ -5,6 +5,8 @@ module.exports = {
     filename: 'bundle.js'
   },
   loaders: [
+    { test: /\.html$/,  loader: "html" },
+    { test: /\.jade$/,  loader: "jade" },
     { test: /\.css$/, loaders: ["style", "css"] },
     { test: /\.less$/, loaders: ["style", "css", "less"] }
   ]
