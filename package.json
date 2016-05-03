@@ -7,12 +7,14 @@
   },
   "scripts": {
     "start": "node server/app",
+    "debug": "node debug server/app",
     "server": "webpack && node server/app"
   },
   "dependencies": {
     "express": "^4.13.4",
     "jquery": "^2.2.3",
-    "socket.io": "^1.4.5"
+    "socket.io": "^1.4.5",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",

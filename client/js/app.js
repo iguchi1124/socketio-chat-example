@@ -1,18 +1,30 @@
 var $ = require("jquery");
-
-require("style!css!less!../css/app.less");
-$("#app").html(require("jade!../jade/app.jade"));
-
 var io = require("socket.io-client");
 var socket = io();
 
-$('form').submit(function(){
-  socket.emit('message', $('#new-message').val());
+require("style!css!less!../css/app.less");
 
-  $('#new-message').val('');
+$("#app").html(require("jade!../jade/lobby.jade"));
+
+$('form').submit(function(){
+  socket.emit('username', $('#username').val());
+
+  $('#username').val('');
   return false;
 });
 
-socket.on('message', function(msg) {
-  $('#messages').append($('<li>').text(msg));
-});
+socket.on('entered', function(name){
+  $("#app").html(require("jade!../jade/app.jade"));
+  $('#messages').append($('<li>').text(name + ' joined room.'));
+
+  $('form').submit(function(){
+    socket.emit('message', $('#new-message').val());
+
+    $('#new-message').val('');
+    return false;
+  });
+
+  socket.on('message', function(msg) {
+    $('#messages').append($('<li>').text(name + ': ' + msg));
+  });
+})
