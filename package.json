@@ -1,6 +1,10 @@
 {
   "name": "socket-chat-example",
   "description": "my first socket.io app",
+  "engines": {
+    "node": "v6.0.0",
+    "npm": "3.8.6"
+  },
   "dependencies": {
     "express": "^4.13.4",
     "jquery": "^2.2.3",
