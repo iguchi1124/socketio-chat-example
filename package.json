@@ -11,6 +11,9 @@
     "socket.io": "^1.4.5"
   },
   "devDependencies": {
+    "css-loader": "^0.23.1",
+    "less-loader": "^2.2.3",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.0"
   }
 }
