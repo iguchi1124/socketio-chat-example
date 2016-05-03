@@ -1,4 +1,4 @@
-require("style!css!less!../css/style.less");
+require("!style!css!less!../css/style.less");
 var $ = require("jquery");
 var io = require("socket.io-client");
 

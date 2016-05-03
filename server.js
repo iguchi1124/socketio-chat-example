@@ -6,8 +6,8 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/client/index.html');
 });
 
-app.get('/js/bundle.js', function(req, res) {
-  res.sendFile(__dirname + '/client/js/bundle.js');
+app.get('/bundle.js', function(req, res) {
+  res.sendFile(__dirname + '/client/bundle.js');
 });
 
 io.on('connection', function(socket){
