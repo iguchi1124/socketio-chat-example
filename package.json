@@ -7,8 +7,7 @@
   },
   "scripts": {
     "start": "node server/app",
-    "server": "webpack && node server/app",
-    "s": "npm run server"
+    "server": "webpack && node server/app"
   },
   "dependencies": {
     "express": "^4.13.4",
