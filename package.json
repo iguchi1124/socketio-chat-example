@@ -3,6 +3,10 @@
   "description": "my first socket.io app",
   "dependencies": {
     "express": "^4.13.4",
+    "jquery": "^2.2.3",
     "socket.io": "^1.4.5"
+  },
+  "devDependencies": {
+    "webpack": "^1.13.0"
   }
 }

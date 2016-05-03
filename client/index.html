@@ -18,18 +18,6 @@
     <form action="">
       <input id="m" autocomplete="off"><button>Send</button>
     </form>
-    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io();
-      $('form').submit(function(){
-        socket.emit('message', $('#m').val());
-        $('#m').val('');
-        return false;
-      });
-      socket.on('message', function(msg) {
-        $('#messages').append($('<li>').text(msg));
-      });
-    </script>
+    <script src="/js/bundle.js"></script>
   </body>
 </html>
