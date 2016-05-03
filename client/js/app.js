@@ -7,9 +7,9 @@ var io = require("socket.io-client");
 var socket = io();
 
 $('form').submit(function(){
-  socket.emit('message', $('#m').val());
+  socket.emit('message', $('#new-message').val());
 
-  $('#m').val('');
+  $('#new-message').val('');
   return false;
 });
 
