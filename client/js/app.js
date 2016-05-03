@@ -1,6 +1,6 @@
 var $ = require("jquery");
 
-require("style!css!less!../css/style.less");
+require("style!css!less!../css/app.less");
 $("#app").html(require("jade!../jade/app.jade"));
 
 var io = require("socket.io-client");

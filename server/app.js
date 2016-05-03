@@ -2,12 +2,15 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+var path = require('path');
+var root = path.resolve(__dirname, '..')
+
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/client/index.html');
+  res.sendFile(path.join(root, 'client/index.html'));
 });
 
 app.get('/bundle.js', function(req, res) {
-  res.sendFile(__dirname + '/client/bundle.js');
+  res.sendFile(path.join(root, 'client/bundle.js'));
 });
 
 io.on('connection', function(socket){
