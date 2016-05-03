@@ -18,7 +18,7 @@ module.exports = function(io) {
 
       socket.on('message', function(msg){
         console.log('message: ' + msg);
-        self.io.emit('message', msg);
+        self.broadcastToUsers('message', msg);
       });
     });
   }
@@ -29,7 +29,6 @@ module.exports = function(io) {
 
       if(nameBad) {
         socket.emit('nameBad', name);
-        console.log('rejected1 ' + name);
         return;
       }
 
@@ -40,13 +39,18 @@ module.exports = function(io) {
       if (!nameExist) {
         var newUser = new User({name: name, socket: socket});
         self.users.push(newUser);
-        socket.emit('entered', name);
+        self.broadcastToUsers('entered', name);
       } else {
         socket.emit('nameExist', name);
       }
     });
   }
 
+  self.broadcastToUsers = function(event, msg) {
+    _.map(self.users, function(user){
+      user.socket.emit(event, msg);
+    });
+  }
 }
 
 var User = function(params) {
