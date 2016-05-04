@@ -13,6 +13,8 @@ $('form').submit(function(){
   return false;
 });
 
+$('body').scrollTop($('body').prop('scrollHeight'));
+
 socket.on('nameExist', function(name) {
   $('#notice').text('A user who named "' + name + '" is already in the room. Please use other name.');
 });
@@ -40,6 +42,9 @@ socket.on('userJoined', function(name){
 
   socket.on('message', function(message) {
     $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
+
+    var height = $('body').prop('scrollHeight');
+    if(Math.abs(height - $('body').scrollTop()) <= 1000) $('body').scrollTop(height);
   });
 
   $('form').submit(function(){

@@ -59,6 +59,8 @@
 	  return false;
 	});
 
+	$('body').scrollTop($('body').prop('scrollHeight'));
+
 	socket.on('nameExist', function(name) {
 	  $('#notice').text('A user who named "' + name + '" is already in the room. Please use other name.');
 	});
@@ -86,6 +88,9 @@
 
 	  socket.on('message', function(message) {
 	    $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
+
+	    var height = $('body').prop('scrollHeight');
+	    if(Math.abs(height - $('body').scrollTop()) <= 1000) $('body').scrollTop(height);
 	  });
 
 	  $('form').submit(function(){
@@ -17409,7 +17414,7 @@
 	exports.i(__webpack_require__(54), "");
 
 	// module
-	exports.push([module.id, "form.username-input {\n  text-align: center;\n  position: fixed;\n  top: 50%;\n  height: 60px;\n  width: 100%;\n}\nform.username-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 70%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.username-input button {\n  padding: 0;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 15%;\n  background: #82e0ff;\n}\n#messages {\n  padding: 0;\n  margin: 0;\n  list-style-type: none;\n}\n#messages li {\n  padding: 5px 10px;\n}\n#messages li:nth-child(odd) {\n  background: #eee;\n}\nform.message-input {\n  position: fixed;\n  bottom: 0;\n  height: 50px;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\nform.message-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 80%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.message-input button {\n  padding: 0;\n  margin: 0;\n  height: 100%;\n  width: 18%;\n  background: #82e0ff;\n  border: none;\n  display: inline;\n}\n", ""]);
+	exports.push([module.id, "form.username-input {\n  text-align: center;\n  position: fixed;\n  top: 50%;\n  height: 60px;\n  width: 100%;\n}\nform.username-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 70%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.username-input button {\n  padding: 0;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 15%;\n  background: #82e0ff;\n}\n#messages {\n  padding: 0;\n  padding-bottom: 60px;\n  margin: 0;\n  list-style-type: none;\n}\n#messages li {\n  padding: 5px 10px;\n}\n#messages li:nth-child(odd) {\n  background: #eee;\n}\nform.message-input {\n  position: fixed;\n  bottom: 0;\n  height: 50px;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\nform.message-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 80%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.message-input button {\n  padding: 0;\n  margin: 0;\n  height: 100%;\n  width: 18%;\n  background: #82e0ff;\n  border: none;\n  display: inline;\n}\n", ""]);
 
 	// exports
 
