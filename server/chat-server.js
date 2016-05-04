@@ -39,7 +39,7 @@ module.exports = function(io) {
       if (!nameExist) {
         var newUser = new User({name: name, socket: socket});
         self.users.push(newUser);
-        self.broadcastToUsers('entered', name);
+        self.broadcastToUsers('userJoined', name);
       } else {
         socket.emit('nameExist', name);
       }

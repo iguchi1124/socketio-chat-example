@@ -13,7 +13,7 @@ $('form').submit(function(){
   return false;
 });
 
-socket.on('entered', function(name){
+socket.on('userJoined', function(name){
   $("#app").html(require("jade!../jade/app.jade"));
   $('#messages').append($('<li>').text(name + ' joined room.'));
 

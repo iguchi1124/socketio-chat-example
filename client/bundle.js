@@ -59,7 +59,7 @@
 	  return false;
 	});
 
-	socket.on('entered', function(name){
+	socket.on('userJoined', function(name){
 	  $("#app").html(__webpack_require__(58));
 	  $('#messages').append($('<li>').text(name + ' joined room.'));
 
