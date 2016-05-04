@@ -13,8 +13,14 @@ $('form').submit(function(){
   return false;
 });
 
+var renderedRoom = false;
+
 socket.on('userJoined', function(name){
-  $("#app").html(require("jade!../jade/app.jade"));
+  if(!renderedRoom) {
+    $("#app").html(require("jade!../jade/app.jade"));
+    renderedRoom = true;
+  }
+
   $('#messages').append($('<li>').text(name + ' joined room.'));
 
   $('form').submit(function(){

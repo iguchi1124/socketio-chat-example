@@ -59,8 +59,14 @@
 	  return false;
 	});
 
+	var renderedRoom = false;
+
 	socket.on('userJoined', function(name){
-	  $("#app").html(__webpack_require__(58));
+	  if(!renderedRoom) {
+	    $("#app").html(__webpack_require__(58));
+	    renderedRoom = true;
+	  }
+
 	  $('#messages').append($('<li>').text(name + ' joined room.'));
 
 	  $('form').submit(function(){
