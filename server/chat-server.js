@@ -51,15 +51,16 @@ module.exports = function(io) {
   self.handleUserConnection = function(user) {
     user.socket.on('disconnect', function(){
       self.users.splice(self.users.indexOf(user), 1);
+      self.broadcastToUsers('userLeft', user.name);
     });
 
     user.socket.on('message', function(msg) {
-      self.broadcastToUsers('message', { sender: user.name, content: msg })
+      self.broadcastToUsers('message', { sender: user.name, content: msg });
     });
   }
 
   self.broadcastToUsers = function(event, obj) {
-    _.map(self.users, function(user){
+    _.each(self.users, function(user){
       user.socket.emit(event, obj);
     });
   }

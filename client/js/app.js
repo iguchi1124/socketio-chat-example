@@ -14,6 +14,7 @@ $('form').submit(function(){
 });
 
 var renderedRoom = false;
+var loaded = false;
 
 socket.on('userJoined', function(name){
   if(!renderedRoom) {
@@ -23,6 +24,16 @@ socket.on('userJoined', function(name){
 
   $('#messages').append($('<li>').text(name + ' joined room.'));
 
+  if(loaded) return;
+
+  socket.on('userLeft', function(name){
+    $('#messages').append($('<li>').text(name + ' left room.'));
+  });
+
+  socket.on('message', function(message) {
+    $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
+  });
+
   $('form').submit(function(){
     socket.emit('message', $('#new-message').val());
 
@@ -30,7 +41,5 @@ socket.on('userJoined', function(name){
     return false;
   });
 
-  socket.on('message', function(message) {
-    $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
-  });
-})
+  loaded = true;
+});
