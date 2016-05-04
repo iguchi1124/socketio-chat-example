@@ -1,7 +1,7 @@
 #messages {
-  list-style-type: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
+  list-style-type: none;
 
   li {
     padding: 5px 10px;
@@ -13,25 +13,29 @@
 }
 
 form.message-input {
-  padding: 3px;
   position: fixed;
   bottom: 0;
   height: 50px;
   width: 100%;
+  padding: 0;
+  margin: 0;
 
   input {
-    border: 1px solid #eee;
+    padding: 0 1%;
+    margin: 0;
+    border: none;
     height: 100%;
-    width: 90%;
-    margin-right: .5%;
-    padding: 10px;
+    width: 80%;
+    box-shadow:0 0 2px 2px rgba(200,200,200,0.5) inset;
   }
 
   button {
+    padding: 0;
+    margin: 0;
     height: 100%;
-    width: 9%;
+    width: 18%;
     background: rgb(130, 224, 255);
     border: none;
-    padding: 10px;
+    display: inline;
   }
 }
