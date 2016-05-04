@@ -1,5 +1,5 @@
 {
-  "name": "socket-chat-example",
+  "name": "socketio-chat-example",
   "description": "my first socket.io app",
   "engines": {
     "node": "v6.0.0",

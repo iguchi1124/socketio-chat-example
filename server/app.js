@@ -16,6 +16,6 @@ app.get('/bundle.js', function(req, res) {
 var chatServer = require('./chat-server');
 new chatServer(io).run();
 
-httpServer.listen(3000, function(){
+httpServer.listen(process.env.PORT || 3000, function(){
   console.log('listening on *:3000');
 });
