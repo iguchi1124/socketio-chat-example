@@ -29,7 +29,7 @@ module.exports = function(io) {
       var nameBad = !name || name.length < 3 || name.length > 15;
 
       if(nameBad) {
-        socket.emit('nameBad', name);
+        socket.emit('nameBad');
         return;
       }
 

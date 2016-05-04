@@ -59,6 +59,14 @@
 	  return false;
 	});
 
+	socket.on('nameExist', function(name) {
+	  $('#notice').text('A user who named "' + name + '" is already in the room. Please use other name.');
+	});
+
+	socket.on('nameBad', function() {
+	  $('#notice').text('Please enter the name of the 3 or more characters to 15 characters or less.');
+	});
+
 	var renderedRoom = false;
 	var loaded = false;
 
@@ -17739,7 +17747,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<form class=\"username-input\"><input id=\"username\" placeholder=\"Enter your nickname\"><button type=\"submit\">Entry</button></form>");;return buf.join("");
+	buf.push("<form class=\"username-input\"><p id=\"notice\"></p><input id=\"username\" placeholder=\"Enter your nickname\"><button type=\"submit\">Entry</button></form>");;return buf.join("");
 	}
 
 /***/ },
