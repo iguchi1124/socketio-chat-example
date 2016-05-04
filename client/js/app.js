@@ -15,6 +15,11 @@ $('form').submit(function(){
 
 $('body').scrollTop($('body').prop('scrollHeight'));
 
+var autoScroll = function() {
+  var height = $('body').prop('scrollHeight');
+  if(Math.abs(height - $('body').scrollTop()) <= 1000) $('body').scrollTop(height);
+}
+
 socket.on('nameExist', function(name) {
   $('#notice').text('A user who named "' + name + '" is already in the room. Please use other name.');
 });
@@ -33,18 +38,18 @@ socket.on('userJoined', function(name){
   }
 
   $('#messages').append($('<li>').text(name + ' joined room.'));
+  autoScroll();
 
   if(loaded) return;
 
   socket.on('userLeft', function(name){
     $('#messages').append($('<li>').text(name + ' left room.'));
+    autoScroll();
   });
 
   socket.on('message', function(message) {
     $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
-
-    var height = $('body').prop('scrollHeight');
-    if(Math.abs(height - $('body').scrollTop()) <= 1000) $('body').scrollTop(height);
+    autoScroll();
   });
 
   $('form').submit(function(){
