@@ -24,7 +24,7 @@ socket.on('userJoined', function(name){
     return false;
   });
 
-  socket.on('message', function(msg) {
-    $('#messages').append($('<li>').text(name + ': ' + msg));
+  socket.on('message', function(message) {
+    $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
   });
 })

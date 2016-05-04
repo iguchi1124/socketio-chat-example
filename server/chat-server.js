@@ -1,5 +1,12 @@
 var _ = require('underscore');
 
+var User = function(params) {
+  var self = this;
+
+  self.name = params.name;
+  self.socket = params.socket;
+}
+
 module.exports = function(io) {
   var self = this;
   self.io = io;
@@ -8,17 +15,11 @@ module.exports = function(io) {
   self.run = function() {
     self.io.on('connection', function(socket){
       console.log('a user connected');
-      debugger;
 
       self.handleConnection(socket);
 
       socket.on('disconnect', function(){
         console.log('user disconnected');
-      });
-
-      socket.on('message', function(msg){
-        console.log('message: ' + msg);
-        self.broadcastToUsers('message', msg);
       });
     });
   }
@@ -40,22 +41,26 @@ module.exports = function(io) {
         var newUser = new User({name: name, socket: socket});
         self.users.push(newUser);
         self.broadcastToUsers('userJoined', name);
+        self.handleUserConnection(newUser);
       } else {
         socket.emit('nameExist', name);
       }
     });
   }
 
-  self.broadcastToUsers = function(event, msg) {
-    _.map(self.users, function(user){
-      user.socket.emit(event, msg);
+  self.handleUserConnection = function(user) {
+    user.socket.on('disconnect', function(){
+      self.users.splice(self.users.indexOf(user), 1);
+    });
+
+    user.socket.on('message', function(msg) {
+      self.broadcastToUsers('message', { sender: user.name, content: msg })
     });
   }
-}
 
-var User = function(params) {
-  var self = this;
-
-  self.name = params.name;
-  self.socket = params.socket;
+  self.broadcastToUsers = function(event, obj) {
+    _.map(self.users, function(user){
+      user.socket.emit(event, obj);
+    });
+  }
 }
