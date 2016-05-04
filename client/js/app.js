@@ -18,7 +18,7 @@ var loaded = false;
 
 socket.on('userJoined', function(name){
   if(!renderedRoom) {
-    $("#app").html(require("jade!../jade/app.jade"));
+    $("#app").html(require("jade!../jade/room.jade"));
     renderedRoom = true;
   }
 

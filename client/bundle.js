@@ -17401,7 +17401,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\nbody {\n  font: 13px Helvetica, Arial;\n}\n.user-entry-box {\n  text-align: center;\n  position: fixed;\n  top: 50%;\n  height: 60px;\n  width: 100%;\n}\n.user-entry-box form.username-input {\n  height: 100%;\n}\n.user-entry-box form.username-input input {\n  border: 1px solid #eee;\n  height: 100%;\n  width: 60%;\n  margin-right: .5%;\n  padding: 10px;\n}\n.user-entry-box form.username-input button {\n  height: 100%;\n  width: 9%;\n  background: #82e0ff;\n  border: none;\n  padding: 10px;\n}\n#messages {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n}\n#messages li {\n  padding: 5px 10px;\n}\n#messages li:nth-child(odd) {\n  background: #eee;\n}\nform.message-input {\n  padding: 3px;\n  position: fixed;\n  bottom: 0;\n  height: 50px;\n  width: 100%;\n}\nform.message-input input {\n  border: 1px solid #eee;\n  height: 100%;\n  width: 90%;\n  margin-right: .5%;\n  padding: 10px;\n}\nform.message-input button {\n  height: 100%;\n  width: 9%;\n  background: #82e0ff;\n  border: none;\n  padding: 10px;\n}\n", ""]);
+	exports.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\nbody {\n  font: 13px Helvetica, Arial;\n}\nform.username-input {\n  text-align: center;\n  position: fixed;\n  top: 50%;\n  height: 60px;\n  width: 100%;\n}\nform.username-input input {\n  border: 1px solid #eee;\n  height: 100%;\n  width: 60%;\n  margin-right: .5%;\n  padding: 10px;\n}\nform.username-input button {\n  height: 100%;\n  width: 9%;\n  background: #82e0ff;\n  border: none;\n  padding: 10px;\n}\n#messages {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n}\n#messages li {\n  padding: 5px 10px;\n}\n#messages li:nth-child(odd) {\n  background: #eee;\n}\nform.message-input {\n  padding: 3px;\n  position: fixed;\n  bottom: 0;\n  height: 50px;\n  width: 100%;\n}\nform.message-input input {\n  border: 1px solid #eee;\n  height: 100%;\n  width: 90%;\n  margin-right: .5%;\n  padding: 10px;\n}\nform.message-input button {\n  height: 100%;\n  width: 9%;\n  background: #82e0ff;\n  border: none;\n  padding: 10px;\n}\n", ""]);
 
 	// exports
 
@@ -17725,7 +17725,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<div class=\"user-entry-box\"><form class=\"username-input\"><input id=\"username\"><button type=\"submit\">Entry</button></form></div>");;return buf.join("");
+	buf.push("<form class=\"username-input\"><input id=\"username\"><button type=\"submit\">Entry</button></form>");;return buf.join("");
 	}
 
 /***/ },
