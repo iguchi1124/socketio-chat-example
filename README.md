@@ -1,3 +1,11 @@
+# Socket.IO chat
+
+This is a realtime chat application project to learn ``socket.io``.
+
+I'm watching [here](http://socket.io/get-started/chat/) to learn and to create.
+
+I'm challenging homework. And the homework is displayed on the bottom of this [page](http://socket.io/get-started/chat/).
+
 ## Homework
 
 Here are some ideas to improve the application:
@@ -9,3 +17,8 @@ Here are some ideas to improve the application:
 * Show who’s online
 * Add private messaging
 * Share your improvements!
+
+## References
+
+* http://socket.io/get-started/chat/
+* https://github.com/rauchg/chat-example
