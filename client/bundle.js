@@ -17765,7 +17765,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<form class=\"username-input\"><p id=\"notice\"></p><input id=\"username\" placeholder=\"Enter your nickname\"><button type=\"submit\">Entry</button></form>");;return buf.join("");
+	buf.push("<form class=\"username-input\"><p id=\"notice\"></p><input id=\"username\" placeholder=\"Enter your nickname\" required><button type=\"submit\">Entry</button></form>");;return buf.join("");
 	}
 
 /***/ },
@@ -18037,7 +18037,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<nav class=\"navbar\"><div><h2>Users:</h2><ul id=\"user-list\"></ul></div></nav><ul id=\"messages\"></ul><form class=\"message-input\"><input id=\"new-message\" autocomplete=\"off\" placeholder=\"Enter your message\"><button type=\"submit\">Send</button></form>");;return buf.join("");
+	buf.push("<nav class=\"navbar\"><div><h2>Users:</h2><ul id=\"user-list\"></ul></div></nav><ul id=\"messages\"></ul><form class=\"message-input\"><input id=\"new-message\" autocomplete=\"off\" placeholder=\"Enter your message\" required><button type=\"submit\">Send</button></form>");;return buf.join("");
 	}
 
 /***/ }

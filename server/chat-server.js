@@ -26,6 +26,8 @@ module.exports = function(io) {
 
   self.handleConnection = function(socket) {
     socket.on('username', function(name) {
+      name = name.trim();
+
       var nameBad = !name || name.length < 3 || name.length > 15;
 
       if(nameBad) {
@@ -58,6 +60,11 @@ module.exports = function(io) {
     });
 
     user.socket.on('message', function(msg) {
+      var reg = /^\s*$/;
+      msg = msg.trim();
+
+      if(reg.test(msg)) return;
+
       self.broadcastToUsers('message', { sender: user.name, content: msg });
     });
   }
