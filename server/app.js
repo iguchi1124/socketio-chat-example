@@ -13,9 +13,9 @@ app.get('/bundle.js', function(req, res) {
   res.sendFile(path.join(root, 'public/bundle.js'));
 });
 
-var chat = require('./chat');
+var Chat = require('./chat');
 
-chatApp = new chat(io);
+chatApp = new Chat(io);
 chatApp.run();
 
 httpServer.listen(process.env.PORT || 3000, function(){
