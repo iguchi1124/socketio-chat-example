@@ -48,9 +48,13 @@
 	var io = __webpack_require__(4);
 	var socket = io();
 
-	__webpack_require__(51);
+	var stylesheet = __webpack_require__(51),
+	    lobbyTemplate = __webpack_require__(56),
+	    roomTemplate = __webpack_require__(59);
 
-	$("#app").html(__webpack_require__(56));
+	stylesheet;
+
+	$("#app").html(lobbyTemplate);
 
 	$('form').submit(function(){
 	  socket.emit('username', $('#username').val());
@@ -79,7 +83,7 @@
 
 	socket.on('userJoined', function(name){
 	  if(!renderedRoom) {
-	    $("#app").html(__webpack_require__(59));
+	    $("#app").html(roomTemplate);
 	    renderedRoom = true;
 	  }
 

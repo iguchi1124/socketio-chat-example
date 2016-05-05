@@ -2,9 +2,13 @@ var $ = require("jquery");
 var io = require("socket.io-client");
 var socket = io();
 
-require("style!css!less!../css/app.less");
+var stylesheet = require("../css/app.less"),
+    lobbyTemplate = require("../jade/lobby.jade"),
+    roomTemplate = require("../jade/room.jade");
 
-$("#app").html(require("jade!../jade/lobby.jade"));
+stylesheet;
+
+$("#app").html(lobbyTemplate);
 
 $('form').submit(function(){
   socket.emit('username', $('#username').val());
@@ -33,7 +37,7 @@ var loaded = false;
 
 socket.on('userJoined', function(name){
   if(!renderedRoom) {
-    $("#app").html(require("jade!../jade/room.jade"));
+    $("#app").html(roomTemplate);
     renderedRoom = true;
   }
 
