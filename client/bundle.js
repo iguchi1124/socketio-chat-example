@@ -93,6 +93,14 @@
 	    autoScroll();
 	  });
 
+	  socket.on('usersNameList', function(nameList){
+	    $('#user-list').html('');
+
+	    nameList.forEach(function(name) {
+	      $('#user-list').append($('<li>').text(name));
+	    });
+	  });
+
 	  socket.on('message', function(message) {
 	    $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
 	    autoScroll();
@@ -17419,7 +17427,7 @@
 	exports.i(__webpack_require__(54), "");
 
 	// module
-	exports.push([module.id, "form.username-input {\n  text-align: center;\n  position: fixed;\n  top: 50%;\n  height: 60px;\n  width: 100%;\n}\nform.username-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 70%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.username-input button {\n  padding: 0;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 15%;\n  background: #82e0ff;\n}\n#messages {\n  padding: 0;\n  padding-bottom: 60px;\n  margin: 0;\n  list-style-type: none;\n}\n#messages li {\n  padding: 5px 10px;\n}\n#messages li:nth-child(odd) {\n  background: #eee;\n}\nform.message-input {\n  position: fixed;\n  bottom: 0;\n  height: 50px;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\nform.message-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 80%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.message-input button {\n  padding: 0;\n  margin: 0;\n  height: 100%;\n  width: 18%;\n  background: #82e0ff;\n  border: none;\n  display: inline;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  min-height: 100%;\n  min-width: 100%;\n}\n#app {\n  margin: 0;\n  padding: 0;\n  min-height: 100%;\n  min-width: 100%;\n}\nform.username-input {\n  text-align: center;\n  position: fixed;\n  top: 50%;\n  height: 60px;\n  width: 100%;\n}\nform.username-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 60%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.username-input button {\n  padding: 0;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 20%;\n  background: #82e0ff;\n}\nnav.navbar {\n  position: fixed;\n  top: 0px;\n  height: 60px;\n  width: 100%;\n  box-shadow: 0 0 8px 3px rgba(200, 200, 200, 0.5);\n  background-color: #fff;\n  z-index: 1;\n}\nnav.navbar h2 {\n  padding: 0 5px 0 15px;\n  margin: 0;\n  font-size: 16px;\n  font-weight: 200;\n  display: inline-block;\n}\nnav.navbar #user-list {\n  padding: 0;\n  list-style-type: none;\n  display: inline-block;\n}\nnav.navbar #user-list li {\n  padding: 0 10px;\n  display: inline-block;\n}\n#messages {\n  width: 100%;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n  margin-top: 60px;\n  margin-bottom: 60px;\n  list-style-type: none;\n}\n#messages li {\n  padding: 5px 10px;\n}\n#messages li:nth-child(odd) {\n  background: #eee;\n}\nform.message-input {\n  position: fixed;\n  bottom: 0;\n  height: 50px;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\nform.message-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 80%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.message-input button {\n  padding: 0;\n  margin: 0;\n  height: 100%;\n  width: 18%;\n  background: #82e0ff;\n  border: none;\n  display: inline;\n}\n", ""]);
 
 	// exports
 
@@ -18029,7 +18037,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<ul id=\"messages\"></ul><form class=\"message-input\"><input id=\"new-message\" autocomplete=\"off\" placeholder=\"Enter your message\"><button type=\"submit\">Send</button></form>");;return buf.join("");
+	buf.push("<nav class=\"navbar\"><section><h2>Users:</h2><ul id=\"user-list\"></ul></section></nav><ul id=\"messages\"></ul><form class=\"message-input\"><input id=\"new-message\" autocomplete=\"off\" placeholder=\"Enter your message\"><button type=\"submit\">Send</button></form>");;return buf.join("");
 	}
 
 /***/ }

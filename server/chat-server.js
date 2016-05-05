@@ -49,9 +49,12 @@ module.exports = function(io) {
   }
 
   self.handleUserConnection = function(user) {
+    self.broadcastToUsers('usersNameList', self.usersNameList());
+
     user.socket.on('disconnect', function(){
       self.users.splice(self.users.indexOf(user), 1);
       self.broadcastToUsers('userLeft', user.name);
+      self.broadcastToUsers('usersNameList', self.usersNameList());
     });
 
     user.socket.on('message', function(msg) {
@@ -63,5 +66,13 @@ module.exports = function(io) {
     _.each(self.users, function(user){
       user.socket.emit(event, obj);
     });
+  }
+
+  self.usersNameList = function() {
+    var nameList = _.map(self.users, function(user){
+      return user.name;
+    });
+
+    return nameList;
   }
 }

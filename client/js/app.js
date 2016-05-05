@@ -47,6 +47,14 @@ socket.on('userJoined', function(name){
     autoScroll();
   });
 
+  socket.on('usersNameList', function(nameList){
+    $('#user-list').html('');
+
+    nameList.forEach(function(name) {
+      $('#user-list').append($('<li>').text(name));
+    });
+  });
+
   socket.on('message', function(message) {
     $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
     autoScroll();
