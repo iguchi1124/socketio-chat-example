@@ -13,8 +13,10 @@ app.get('/bundle.js', function(req, res) {
   res.sendFile(path.join(root, 'client/bundle.js'));
 });
 
-var chatServer = require('./chat-server');
-new chatServer(io).run();
+var chat = require('./chat');
+
+chatApp = new chat(io);
+chatApp.run();
 
 httpServer.listen(process.env.PORT || 3000, function(){
   console.log('listening on *:3000');
