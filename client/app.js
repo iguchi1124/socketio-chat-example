@@ -2,45 +2,53 @@ var $ = require('jquery');
 var io = require('socket.io-client');
 var socket = io();
 
-var stylesheet = require('../css/app.less');
-var lobbyTemplate = require('../jade/lobby.jade');
-var roomTemplate = require('../jade/room.jade');
+var normalizeStylesheet = require('./css/normalize.css');
+var applicationStylesheet = require('./less/app.less');
 
-stylesheet;
+var lobbyTemplate = require('./jade/lobby.jade');
+var roomTemplate = require('./jade/room.jade');
 
-$('#app').html(lobbyTemplate);
+normalizeStylesheet;
+applicationStylesheet;
 
-$('form').submit(function(){
-  socket.emit('username', $('#username').val());
+var renderedLobby = false;
+var renderedRoom = false;
 
-  $('#username').val('');
-  return false;
-});
+if(!renderedLobby && !renderedRoom) {
+  $('#app').html(lobbyTemplate);
+  renderedLobby = true;
 
-$('body').scrollTop($('body').prop('scrollHeight'));
+  $('form').submit(function(){
+    socket.emit('username', $('#username').val());
+
+    $('#username').val('');
+    return false;
+  });
+
+  $('body').scrollTop($('body').prop('scrollHeight'));
+
+  socket.on('nameExist', function(name) {
+    $('#notice').text('A user who named "' + name + '" is already in the room. Please use other name.');
+  });
+
+  socket.on('nameLengthInvalid', function() {
+    $('#notice').text('Please enter the name of the 3 or more characters to 15 characters or less.');
+  });
+
+  socket.on('nameHasInvalidChars', function() {
+    $('#notice').text('You can use only alphanumeric and hyphen(-) and underscore(_) for username.');
+  });
+}
 
 var autoScroll = function() {
   var height = $('body').prop('scrollHeight');
   if(Math.abs(height - $('body').scrollTop()) <= 1000) $('body').scrollTop(height);
 }
 
-socket.on('nameExist', function(name) {
-  $('#notice').text('A user who named "' + name + '" is already in the room. Please use other name.');
-});
-
-socket.on('nameLengthInvalid', function() {
-  $('#notice').text('Please enter the name of the 3 or more characters to 15 characters or less.');
-});
-
-socket.on('nameHasInvalidChars', function() {
-  $('#notice').text('You can use only alphanumeric and hyphen(-) and underscore(_) for username.');
-});
-
-var renderedRoom = false;
-var loaded = false;
+var eventsLoaded = false;
 
 socket.on('userJoined', function(name){
-  if(!renderedRoom) {
+  if(renderedLobby && !renderedRoom) {
     $('#app').html(roomTemplate);
     renderedRoom = true;
   }
@@ -48,7 +56,7 @@ socket.on('userJoined', function(name){
   $('#messages').append($('<li>').text(name + ' joined room.'));
   autoScroll();
 
-  if(loaded) return;
+  if(eventsLoaded) return;
 
   socket.on('userLeft', function(name){
     $('#messages').append($('<li>').text(name + ' left room.'));
@@ -99,5 +107,5 @@ socket.on('userJoined', function(name){
     autoScroll();
   });
 
-  loaded = true;
+  eventsLoaded = true;
 });

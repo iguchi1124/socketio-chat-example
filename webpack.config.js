@@ -1,7 +1,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: __dirname + '/client/js/app.js',
+  entry: __dirname + '/client/app.js',
   output: {
     path: __dirname + '/public/',
     filename: 'bundle.js'
@@ -16,7 +16,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: __dirname + '/client/jade/app.jade'
+      template: __dirname + '/client/app.jade'
     })
   ]
 }
