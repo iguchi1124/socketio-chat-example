@@ -1,17 +1,12 @@
-var app = require('express')();
+var express = require('express');
+var app = express();
 var httpServer = require('http').Server(app);
 var io = require('socket.io')(httpServer);
 
 var path = require('path');
 var root = path.resolve(__dirname, '..');
 
-app.get('/', function(req, res){
-  res.sendFile(path.join(root, 'public/index.html'));
-});
-
-app.get('/bundle.js', function(req, res) {
-  res.sendFile(path.join(root, 'public/bundle.js'));
-});
+app.use(express.static(path.join(root, 'public')));
 
 var Chat = require('./chat');
 
