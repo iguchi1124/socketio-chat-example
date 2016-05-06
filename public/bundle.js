@@ -107,6 +107,7 @@
 
 	  $('form').submit(function(){
 	    socket.emit('message', $('#new-message').val());
+	    socket.emit('userFinishedTyping');
 
 	    $('#new-message').val('').blur();
 	    return false;

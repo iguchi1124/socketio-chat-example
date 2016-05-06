@@ -87,6 +87,12 @@ module.exports = function(io) {
 
       self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
     });
+
+    user.socket.on('userFinishedTyping', function(){
+      self.typingUsers = removeUserFromUsers(self.typingUsers, user);
+
+      self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
+    });
   }
 
   self.broadcastToUsers = function(event, obj) {
