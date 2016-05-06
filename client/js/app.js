@@ -59,16 +59,39 @@ socket.on('userJoined', function(name){
     });
   });
 
-  socket.on('message', function(message) {
-    $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
-    autoScroll();
-  });
-
   $('form').submit(function(){
     socket.emit('message', $('#new-message').val());
 
-    $('#new-message').val('');
+    $('#new-message').val('').blur();
     return false;
+  });
+
+  $("#new-message").on('keyup keydown', function() {
+    if(this.value.length > 0) {
+      socket.emit('userIsTyping');
+    } else {
+      socket.emit('userCanceledTyping');
+    }
+  });
+
+  socket.on('typingUsers', function(nameList) {
+    if($('#typing-users-info') != null) $('#typing-users-info').remove();
+
+    var typingUsersCount = nameList.length;
+
+    if(typingUsersCount == 1) {
+      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(nameList[0] + " is typing now ..."));
+      autoScroll();
+    } else if (typingUsersCount > 1) {
+      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(typingUsersCount.toString() + "people are typing now ..."));
+    } else {
+      $('#typing-users-info').remove();
+    }
+  });
+
+  socket.on('message', function(message) {
+    $('#messages').append($('<li>').text(message.sender + ': ' + message.content));
+    autoScroll();
   });
 
   loaded = true;

@@ -11,6 +11,7 @@ module.exports = function(io) {
   var self = this;
   self.io = io;
   self.users = [];
+  self.typingUsers = [];
 
   self.run = function() {
     self.io.on('connection', function(socket){
@@ -51,12 +52,15 @@ module.exports = function(io) {
   }
 
   self.handleUserConnection = function(user) {
-    self.broadcastToUsers('usersNameList', self.usersNameList());
+    self.broadcastToUsers('usersNameList', nameList(self.users));
 
     user.socket.on('disconnect', function(){
-      self.users.splice(self.users.indexOf(user), 1);
+      self.users = removeUserFromUsers(self.users, user);
+      self.typingUsers = removeUserFromUsers(self.typingUsers, user);
+
       self.broadcastToUsers('userLeft', user.name);
-      self.broadcastToUsers('usersNameList', self.usersNameList());
+      self.broadcastToUsers('usersNameList', nameList(self.users));
+      self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
     });
 
     user.socket.on('message', function(msg) {
@@ -67,6 +71,22 @@ module.exports = function(io) {
 
       self.broadcastToUsers('message', { sender: user.name, content: msg });
     });
+
+    user.socket.on('userIsTyping', function(){
+      var nameExist = _.some(self.typingUsers, function(typingUser) {
+        return typingUser.name == user.name;
+      });
+
+      if(!nameExist) self.typingUsers.push(user);
+
+      self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
+    });
+
+    user.socket.on('userCanceledTyping', function(){
+      self.typingUsers = removeUserFromUsers(self.typingUsers, user);
+
+      self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
+    });
   }
 
   self.broadcastToUsers = function(event, obj) {
@@ -75,11 +95,17 @@ module.exports = function(io) {
     });
   }
 
-  self.usersNameList = function() {
-    var nameList = _.map(self.users, function(user){
+  var nameList = function(users) {
+    var nameList = _.map(users, function(user){
       return user.name;
     });
 
     return nameList;
+  }
+
+  var removeUserFromUsers = function(users, userToRemove) {
+    return _.filter(users, function(user){
+      return user != userToRemove;
+    });
   }
 }
