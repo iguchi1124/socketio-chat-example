@@ -28,8 +28,12 @@ socket.on('nameExist', function(name) {
   $('#notice').text('A user who named "' + name + '" is already in the room. Please use other name.');
 });
 
-socket.on('nameBad', function() {
+socket.on('nameLengthInvalid', function() {
   $('#notice').text('Please enter the name of the 3 or more characters to 15 characters or less.');
+});
+
+socket.on('nameHasInvalidChars', function() {
+  $('#notice').text('You can use only alphanumeric and hyphen(-) and underscore(_) for username.');
 });
 
 var renderedRoom = false;

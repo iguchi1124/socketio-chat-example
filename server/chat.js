@@ -27,12 +27,17 @@ module.exports = function(io) {
 
   self.handleConnection = function(socket) {
     socket.on('username', function(name) {
-      name = name.trim();
+      var reg = /^([a-zA-Z0-9]|\_|\-)*$/;
 
-      var nameBad = !name || name.length < 3 || name.length > 15;
+      if(!reg.test(name)) {
+        socket.emit('nameHasInvalidChars');
+        return;
+      }
 
-      if(nameBad) {
-        socket.emit('nameBad');
+      var nameLengthInvalid = !name || name.length < 3 || name.length > 15;
+
+      if(nameLengthInvalid) {
+        socket.emit('nameLengthInvalid');
         return;
       }
 
