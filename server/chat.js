@@ -15,13 +15,8 @@ module.exports = function(io) {
 
   self.run = function() {
     self.io.on('connection', function(socket){
-      console.log('a user connected');
 
       self.handleConnection(socket);
-
-      socket.on('disconnect', function(){
-        console.log('user disconnected');
-      });
     });
   }
 
@@ -108,11 +103,9 @@ module.exports = function(io) {
   }
 
   var nameList = function(users) {
-    var nameList = _.map(users, function(user){
+    return _.map(users, function(user){
       return user.name;
     });
-
-    return nameList;
   }
 
   var removeUserFromUsers = function(users, userToRemove) {
