@@ -53,6 +53,7 @@ module.exports = function(io) {
 
   self.handleUserConnection = function(user) {
     self.broadcastToUsers('usersNameList', nameList(self.users));
+    self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
 
     user.socket.on('disconnect', function(){
       self.users = removeUserFromUsers(self.users, user);

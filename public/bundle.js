@@ -48,13 +48,13 @@
 	var io = __webpack_require__(4);
 	var socket = io();
 
-	var stylesheet = __webpack_require__(51),
-	    lobbyTemplate = __webpack_require__(56),
-	    roomTemplate = __webpack_require__(59);
+	var stylesheet = __webpack_require__(51);
+	var lobbyTemplate = __webpack_require__(56);
+	var roomTemplate = __webpack_require__(59);
 
 	stylesheet;
 
-	$("#app").html(lobbyTemplate);
+	$('#app').html(lobbyTemplate);
 
 	$('form').submit(function(){
 	  socket.emit('username', $('#username').val());
@@ -83,7 +83,7 @@
 
 	socket.on('userJoined', function(name){
 	  if(!renderedRoom) {
-	    $("#app").html(roomTemplate);
+	    $('#app').html(roomTemplate);
 	    renderedRoom = true;
 	  }
 
@@ -113,7 +113,7 @@
 	    return false;
 	  });
 
-	  $("#new-message").on('keyup keydown', function() {
+	  $('#new-message').on('keyup keydown', function() {
 	    if(this.value.length > 0) {
 	      socket.emit('userIsTyping');
 	    } else {
@@ -127,10 +127,10 @@
 	    var typingUsersCount = nameList.length;
 
 	    if(typingUsersCount == 1) {
-	      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(nameList[0] + " is typing now ..."));
+	      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(nameList[0] + ' is typing now ...'));
 	      autoScroll();
 	    } else if (typingUsersCount > 1) {
-	      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(typingUsersCount.toString() + "people are typing now ..."));
+	      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(typingUsersCount.toString() + 'people are typing now ...'));
 	    } else {
 	      $('#typing-users-info').remove();
 	    }

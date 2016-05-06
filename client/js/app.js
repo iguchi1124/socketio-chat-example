@@ -1,14 +1,14 @@
-var $ = require("jquery");
-var io = require("socket.io-client");
+var $ = require('jquery');
+var io = require('socket.io-client');
 var socket = io();
 
-var stylesheet = require("../css/app.less"),
-    lobbyTemplate = require("../jade/lobby.jade"),
-    roomTemplate = require("../jade/room.jade");
+var stylesheet = require('../css/app.less');
+var lobbyTemplate = require('../jade/lobby.jade');
+var roomTemplate = require('../jade/room.jade');
 
 stylesheet;
 
-$("#app").html(lobbyTemplate);
+$('#app').html(lobbyTemplate);
 
 $('form').submit(function(){
   socket.emit('username', $('#username').val());
@@ -37,7 +37,7 @@ var loaded = false;
 
 socket.on('userJoined', function(name){
   if(!renderedRoom) {
-    $("#app").html(roomTemplate);
+    $('#app').html(roomTemplate);
     renderedRoom = true;
   }
 
@@ -67,7 +67,7 @@ socket.on('userJoined', function(name){
     return false;
   });
 
-  $("#new-message").on('keyup keydown', function() {
+  $('#new-message').on('keyup keydown', function() {
     if(this.value.length > 0) {
       socket.emit('userIsTyping');
     } else {
@@ -81,10 +81,10 @@ socket.on('userJoined', function(name){
     var typingUsersCount = nameList.length;
 
     if(typingUsersCount == 1) {
-      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(nameList[0] + " is typing now ..."));
+      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(nameList[0] + ' is typing now ...'));
       autoScroll();
     } else if (typingUsersCount > 1) {
-      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(typingUsersCount.toString() + "people are typing now ..."));
+      $('#messages').append($('<li>', { id: 'typing-users-info' }).text(typingUsersCount.toString() + 'people are typing now ...'));
     } else {
       $('#typing-users-info').remove();
     }
