@@ -18,7 +18,7 @@ if(!renderedLobby && !renderedRoom) {
   $('#app').html(lobbyTemplate);
   renderedLobby = true;
 
-  $('form').submit(function(){
+  $('#entry-form').submit(function(){
     socket.emit('username', $('#username').val());
 
     $('#username').val('');
@@ -71,7 +71,7 @@ socket.on('userJoined', function(name){
     });
   });
 
-  $('form').submit(function(){
+  $('#message-form').submit(function(){
     socket.emit('message', $('#new-message').val());
     socket.emit('userFinishedTyping');
 

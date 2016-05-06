@@ -64,7 +64,7 @@
 	  $('#app').html(lobbyTemplate);
 	  renderedLobby = true;
 
-	  $('form').submit(function(){
+	  $('#entry-form').submit(function(){
 	    socket.emit('username', $('#username').val());
 
 	    $('#username').val('');
@@ -117,7 +117,7 @@
 	    });
 	  });
 
-	  $('form').submit(function(){
+	  $('#message-form').submit(function(){
 	    socket.emit('message', $('#new-message').val());
 	    socket.emit('userFinishedTyping');
 
@@ -17815,7 +17815,7 @@
 
 
 	// module
-	exports.push([module.id, "html,\nbody {\n  min-height: 100%;\n  min-width: 100%;\n}\n#app {\n  margin: 0;\n  padding: 0;\n  min-height: 100%;\n  min-width: 100%;\n}\nform.username-input {\n  text-align: center;\n  position: fixed;\n  top: 50%;\n  height: 60px;\n  width: 100%;\n}\nform.username-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 60%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.username-input button {\n  padding: 0;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 20%;\n  background: #82e0ff;\n}\nnav.navbar {\n  position: fixed;\n  top: 0px;\n  height: 60px;\n  width: 100%;\n  box-shadow: 0 0 8px 3px rgba(200, 200, 200, 0.5);\n  background-color: #fff;\n  z-index: 1;\n}\nnav.navbar h2 {\n  padding: 0 5px 0 15px;\n  margin: 0;\n  font-size: 16px;\n  font-weight: 200;\n  display: inline-block;\n}\nnav.navbar #user-list {\n  padding: 0;\n  list-style-type: none;\n  display: inline-block;\n}\nnav.navbar #user-list li {\n  padding: 0 10px;\n  display: inline-block;\n}\n#messages {\n  width: 100%;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n  margin-top: 60px;\n  margin-bottom: 60px;\n  list-style-type: none;\n}\n#messages li {\n  padding: 5px 10px;\n}\n#messages li:nth-child(odd) {\n  background: #eee;\n}\nform.message-input {\n  position: fixed;\n  bottom: 0;\n  height: 50px;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\nform.message-input input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 80%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform.message-input button {\n  padding: 0;\n  margin: 0;\n  height: 100%;\n  width: 18%;\n  background: #82e0ff;\n  border: none;\n  display: inline;\n}\n", ""]);
+	exports.push([module.id, "html,\nbody {\n  min-height: 100%;\n  min-width: 100%;\n}\n#app {\n  margin: 0;\n  padding: 0;\n  min-height: 100%;\n  min-width: 100%;\n}\nform#entry-form {\n  text-align: center;\n  position: fixed;\n  top: 50%;\n  height: 60px;\n  width: 100%;\n}\nform#entry-form input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 60%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform#entry-form button {\n  padding: 0;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 20%;\n  background: #82e0ff;\n}\nnav.navbar {\n  position: fixed;\n  top: 0px;\n  height: 60px;\n  width: 100%;\n  box-shadow: 0 0 8px 3px rgba(200, 200, 200, 0.5);\n  background-color: #fff;\n  z-index: 1;\n}\nnav.navbar h2 {\n  padding: 0 5px 0 15px;\n  margin: 0;\n  font-size: 16px;\n  font-weight: 200;\n  display: inline-block;\n}\nnav.navbar #user-list {\n  padding: 0;\n  list-style-type: none;\n  display: inline-block;\n}\nnav.navbar #user-list li {\n  padding: 0 10px;\n  display: inline-block;\n}\n#messages {\n  width: 100%;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n  margin-top: 60px;\n  margin-bottom: 60px;\n  list-style-type: none;\n}\n#messages li {\n  padding: 5px 10px;\n}\n#messages li:nth-child(odd) {\n  background: #eee;\n}\nform#message-form {\n  position: fixed;\n  bottom: 0;\n  height: 50px;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\nform#message-form input {\n  padding: 0 1%;\n  margin: 0;\n  border: none;\n  height: 100%;\n  width: 80%;\n  box-shadow: 0 0 2px 2px rgba(200, 200, 200, 0.5) inset;\n}\nform#message-form button {\n  padding: 0;\n  margin: 0;\n  height: 100%;\n  width: 18%;\n  background: #82e0ff;\n  border: none;\n  display: inline;\n}\n", ""]);
 
 	// exports
 
@@ -17831,7 +17831,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<form class=\"username-input\"><p id=\"notice\"></p><input id=\"username\" placeholder=\"Enter your nickname\" required><button type=\"submit\">Entry</button></form>");;return buf.join("");
+	buf.push("<form id=\"entry-form\"><p id=\"notice\"></p><input id=\"username\" placeholder=\"Enter your nickname\" required><button type=\"submit\">Entry</button></form>");;return buf.join("");
 	}
 
 /***/ },
@@ -18103,7 +18103,7 @@
 	var jade_mixins = {};
 	var jade_interp;
 
-	buf.push("<nav class=\"navbar\"><div><h2>Users:</h2><ul id=\"user-list\"></ul></div></nav><ul id=\"messages\"></ul><form class=\"message-input\"><input id=\"new-message\" autocomplete=\"off\" placeholder=\"Enter your message\" required><button type=\"submit\">Send</button></form>");;return buf.join("");
+	buf.push("<nav class=\"navbar\"><div><h2>Users:</h2><ul id=\"user-list\"></ul></div></nav><ul id=\"messages\"></ul><form id=\"message-form\"><input id=\"new-message\" autocomplete=\"off\" placeholder=\"Enter your message\" required><button type=\"submit\">Send</button></form>");;return buf.join("");
 	}
 
 /***/ }
