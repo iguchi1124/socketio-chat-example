@@ -45,7 +45,7 @@ var autoScroll = function() {
   if(Math.abs(height - $('body').scrollTop()) <= 1000) $('body').scrollTop(height);
 }
 
-var eventsLoaded = false;
+var loaded = false;
 
 socket.on('userJoined', function(name){
   if(renderedLobby && !renderedRoom) {
@@ -56,7 +56,7 @@ socket.on('userJoined', function(name){
   $('#messages').append($('<li>').text(name + ' joined room.'));
   autoScroll();
 
-  if(eventsLoaded) return;
+  if(loaded) return;
 
   socket.on('userLeft', function(name){
     $('#messages').append($('<li>').text(name + ' left room.'));
@@ -107,5 +107,5 @@ socket.on('userJoined', function(name){
     autoScroll();
   });
 
-  eventsLoaded = true;
+  loaded = true;
 });
