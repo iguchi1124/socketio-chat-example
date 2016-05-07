@@ -71,7 +71,7 @@ module.exports = function(io) {
       if(msgReg.test(msg)) return;
 
       var msgParts = msg.split(/\s|\:|\,/);
-      var listeners = [];
+      var privateListeners = [];
 
       _.each(msgParts, function(part) {
         if(part.length > 3 && part.length <= 16 && part[0] == '@') {
@@ -85,22 +85,22 @@ module.exports = function(io) {
 
           if(u == null) return;
 
-          var userExist = _.some(listeners, function(i) {
+          var userExist = _.some(privateListeners, function(i) {
             return i.name == u.name;
           });
 
-          if(!userExist) listeners.push(u);
+          if(!userExist) privateListeners.push(u);
         }
       });
 
-      if(listeners.length > 0) {
-        var SenderExistInListeners = _.some(listeners, function(u) {
+      if(privateListeners.length > 0) {
+        var SenderExistInPrivateListeners = _.some(privateListeners, function(u) {
           return u.name == user.name;
         });
 
-        if(!SenderExistInListeners) listeners.push(user);
+        if(!SenderExistInPrivateListeners) privateListeners.push(user);
 
-        _.each(listeners, function(u) {
+        _.each(privateListeners, function(u) {
           u.socket.emit('privateMessage', { sender: user.name, content: msg });
         });
       } else {
