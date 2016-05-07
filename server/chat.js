@@ -43,7 +43,7 @@ module.exports = function(io) {
       if (!nameExist) {
         var newUser = new User({name: name, socket: socket});
         self.users.push(newUser);
-        self.broadcastToUsers('userJoined', name);
+        self.broadcastToAllUsers('userJoined', name);
         self.handleUserConnection(newUser);
       } else {
         socket.emit('nameExist', name);
@@ -52,25 +52,54 @@ module.exports = function(io) {
   }
 
   self.handleUserConnection = function(user) {
-    self.broadcastToUsers('usersNameList', nameList(self.users));
-    self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
+    self.broadcastToAllUsers('usersNameList', nameList(self.users));
+    self.broadcastToAllUsers('typingUsers', nameList(self.typingUsers));
 
     user.socket.on('disconnect', function(){
       self.users = removeUserFromUsers(self.users, user);
       self.typingUsers = removeUserFromUsers(self.typingUsers, user);
 
-      self.broadcastToUsers('userLeft', user.name);
-      self.broadcastToUsers('usersNameList', nameList(self.users));
-      self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
+      self.broadcastToAllUsers('userLeft', user.name);
+      self.broadcastToAllUsers('usersNameList', nameList(self.users));
+      self.broadcastToAllUsers('typingUsers', nameList(self.typingUsers));
     });
 
     user.socket.on('message', function(msg) {
-      var reg = /^\s*$/;
-      msg = msg.trim();
+      var msgReg = /^\s*$/;
+      var nameReg = /^([a-zA-Z0-9]|\_|\-)*$/;
 
-      if(reg.test(msg)) return;
+      if(msgReg.test(msg)) return;
 
-      self.broadcastToUsers('message', { sender: user.name, content: msg });
+      var msgParts = msg.split(/\s|\:|\,/);
+      var listeners = [user];
+
+      _.each(msgParts, function(part) {
+        if(part.length > 3 && part.length <= 16 && part[0] == '@') {
+          var name = part.substr(1);
+
+          if(!nameReg.test(name)) return;
+
+          var u = _.find(self.users, function(i) {
+            return i.name == name;
+          });
+
+          if(u == null) return;
+
+          var userExist = _.some(listeners, function(i) {
+            return i.name == u.name;
+          });
+
+          if(!userExist) listeners.push(u);
+        }
+      });
+
+      if(listeners.length > 1) {
+        _.each(listeners, function(u) {
+          u.socket.emit('message', { sender: user.name, content: msg });
+        });
+      } else {
+        self.broadcastToAllUsers('message', { sender: user.name, content: msg });
+      }
     });
 
     user.socket.on('userIsTyping', function(){
@@ -80,23 +109,23 @@ module.exports = function(io) {
 
       if(!nameExist) self.typingUsers.push(user);
 
-      self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
+      self.broadcastToAllUsers('typingUsers', nameList(self.typingUsers));
     });
 
     user.socket.on('userCanceledTyping', function(){
       self.typingUsers = removeUserFromUsers(self.typingUsers, user);
 
-      self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
+      self.broadcastToAllUsers('typingUsers', nameList(self.typingUsers));
     });
 
     user.socket.on('userFinishedTyping', function(){
       self.typingUsers = removeUserFromUsers(self.typingUsers, user);
 
-      self.broadcastToUsers('typingUsers', nameList(self.typingUsers));
+      self.broadcastToAllUsers('typingUsers', nameList(self.typingUsers));
     });
   }
 
-  self.broadcastToUsers = function(event, obj) {
+  self.broadcastToAllUsers = function(event, obj) {
     _.each(self.users, function(user){
       user.socket.emit(event, obj);
     });
