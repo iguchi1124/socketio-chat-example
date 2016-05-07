@@ -53,13 +53,13 @@ socket.on('userJoined', function(name){
     renderedRoom = true;
   }
 
-  $('#messages').append($('<li>').text(name + ' joined room.'));
+  $('#messages').append($('<li>', { class: 'system' }).text(name + ' joined room.'));
   autoScroll();
 
   if(loaded) return;
 
   socket.on('userLeft', function(name){
-    $('#messages').append($('<li>').text(name + ' left room.'));
+    $('#messages').append($('<li>', { class: 'system' }).text(name + ' left room.'));
     autoScroll();
   });
 
