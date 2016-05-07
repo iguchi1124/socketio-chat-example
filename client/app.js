@@ -107,5 +107,10 @@ socket.on('userJoined', function(name){
     autoScroll();
   });
 
+  socket.on('privateMessage', function(message) {
+    $('#messages').append($('<li>', { class: 'private' }).text(message.sender + ': ' + message.content));
+    autoScroll();
+  });
+
   loaded = true;
 });
