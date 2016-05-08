@@ -94,11 +94,11 @@ module.exports = function(io) {
       });
 
       if(privateListeners.length > 0) {
-        var SenderExistInPrivateListeners = _.some(privateListeners, function(u) {
-          return u.name == user.name;
+        var senderExistInPrivateListeners = _.some(privateListeners, function(u) {
+          return u == user;
         });
 
-        if(!SenderExistInPrivateListeners) privateListeners.push(user);
+        if(!senderExistInPrivateListeners) privateListeners.push(user);
 
         _.each(privateListeners, function(u) {
           u.socket.emit('privateMessage', { sender: user.name, content: msg });
